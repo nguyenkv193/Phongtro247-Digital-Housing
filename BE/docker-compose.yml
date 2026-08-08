@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: phongtro247-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: rental_room_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - phongtro247_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  phongtro247_postgres_data:

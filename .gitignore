@@ -1,3 +1,5 @@
 /admin/
 /backend/
 /frontend/
+/.pnpm-store/
+/.idea/
