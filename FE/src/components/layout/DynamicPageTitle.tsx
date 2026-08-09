@@ -5,15 +5,6 @@ import { useEffect } from 'react';
 import { APP_NAME, formatPageTitle } from '@/config/site';
 
 const PAGE_TITLES: Array<[string, string]> = [
-    ['/backoffice/login', 'Đăng nhập quản trị'],
-    ['/backoffice/master-data', 'Quản lý dữ liệu danh mục'],
-    ['/backoffice/complaints', 'Quản lý khiếu nại'],
-    ['/backoffice/listings', 'Quản lý tin đăng'],
-    ['/backoffice/reports', 'Quản lý báo cáo'],
-    ['/backoffice/requests', 'Duyệt yêu cầu dịch vụ'],
-    ['/backoffice/revenue', 'Doanh thu'],
-    ['/backoffice/users', 'Quản lý người dùng'],
-    ['/backoffice', 'Quản trị hệ thống'],
     ['/landlord-dashboard/create-new', 'Đăng tin mới'],
     ['/landlord-dashboard/accommodation', 'Quản lý chỗ ở'],
     ['/landlord-dashboard/account-info', 'Thông tin tài khoản chủ trọ'],

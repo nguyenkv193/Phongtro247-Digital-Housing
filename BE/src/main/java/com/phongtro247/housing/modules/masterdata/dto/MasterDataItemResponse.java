@@ -1,17 +1,15 @@
 package com.phongtro247.housing.modules.masterdata.dto;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 public record MasterDataItemResponse(
         Long id,
-        String groupCode,
+        String categoryCode,
         String code,
         String name,
         String description,
-        int sortOrder,
-        boolean active,
-        String metadata,
-        Instant createdAt,
-        Instant updatedAt
+        boolean status,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {
 }

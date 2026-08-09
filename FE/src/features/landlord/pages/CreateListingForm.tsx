@@ -28,7 +28,7 @@ interface CreateListingFormProps {
 
 interface MasterDataOption {
     name: string;
-    active: boolean;
+    status: boolean;
 }
 
 const CreateListingForm = ({ type, onBack }: CreateListingFormProps) => {
@@ -58,8 +58,8 @@ const CreateListingForm = ({ type, onBack }: CreateListingFormProps) => {
                     axios.get<{ data: MasterDataOption[] }>(`${API_URL}/api/master-data/AMENITY`),
                     axios.get<{ data: MasterDataOption[] }>(`${API_URL}/api/master-data/SURROUNDING`),
                 ]);
-                setAmenitiesList(amenitiesResponse.data.data.filter(item => item.active).map(item => item.name));
-                setSurroundingsList(surroundingsResponse.data.data.filter(item => item.active).map(item => item.name));
+                setAmenitiesList(amenitiesResponse.data.data.filter(item => item.status).map(item => item.name));
+                setSurroundingsList(surroundingsResponse.data.data.filter(item => item.status).map(item => item.name));
             } catch (error) {
                 console.error('Error fetching master data:', error);
             }
