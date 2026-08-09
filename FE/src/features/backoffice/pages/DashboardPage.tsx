@@ -44,6 +44,14 @@ const CATEGORY_COLORS = ['bg-blue-600', 'bg-indigo-500', 'bg-violet-500', 'bg-cy
 
 const numberFormatter = new Intl.NumberFormat('vi-VN');
 
+function formatCompactCurrency(value: number): string {
+    const amount = Number(value) || 0;
+    if (amount >= 1_000_000_000) return `${(amount / 1_000_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 1 })} tỷ`;
+    if (amount >= 1_000_000) return `${(amount / 1_000_000).toLocaleString('vi-VN', { maximumFractionDigits: 1 })} tr`;
+    if (amount >= 1_000) return `${(amount / 1_000).toLocaleString('vi-VN', { maximumFractionDigits: 0 })}k`;
+    return `${Math.round(amount).toLocaleString('vi-VN')} đ`;
+}
+
 function MetricCard({
     label,
     value,
@@ -115,6 +123,118 @@ function AttentionRow({
                 <ArrowUpRight size={15} className="text-slate-300 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-blue-600" />
             </span>
         </Link>
+    );
+}
+
+function RevenueAreaChart({ data, maxValue }: { data: Array<{ label: string; total: number }>; maxValue: number }) {
+    if (!data.length) return <p className="py-14 text-center text-sm text-slate-500">Chưa có dữ liệu doanh thu.</p>;
+    const hasRevenue = data.some(item => item.total > 0);
+
+    if (!hasRevenue) {
+        return (
+            <div className="mt-5">
+                <div className="relative flex h-64 items-center justify-center overflow-hidden rounded-xl border border-dashed border-slate-200 bg-slate-50/70">
+                    <div className="absolute inset-x-8 bottom-14 border-t border-dashed border-slate-200" />
+                    <div className="relative z-10 text-center">
+                        <span className="mx-auto flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-300 shadow-sm">
+                            <CircleDollarSign size={21} />
+                        </span>
+                        <p className="mt-3 text-sm font-semibold text-slate-600">Chưa có giao dịch</p>
+                        <p className="mt-1 text-xs text-slate-400">Doanh thu sẽ hiển thị sau khi phát sinh giao dịch.</p>
+                    </div>
+                </div>
+                <div className="grid gap-1 px-2 pt-3" style={{ gridTemplateColumns: `repeat(${data.length}, minmax(0, 1fr))` }}>
+                    {data.map(item => <span key={item.label} className="text-center text-xs font-medium text-slate-400">{item.label}</span>)}
+                </div>
+            </div>
+        );
+    }
+
+    const width = 720;
+    const height = 280;
+    const plotLeft = 58;
+    const plotRight = 704;
+    const plotTop = 18;
+    const plotBottom = 224;
+    const safeMax = Math.max(maxValue, 1);
+    const points = data.map((item, index) => {
+        const x = plotLeft + (data.length === 1 ? 0 : (index / (data.length - 1)) * (plotRight - plotLeft));
+        const y = plotBottom - (item.total / safeMax) * (plotBottom - plotTop);
+        return { ...item, x, y };
+    });
+    const linePath = points.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' ');
+    const areaPath = `${linePath} L ${points[points.length - 1].x} ${plotBottom} L ${points[0].x} ${plotBottom} Z`;
+    const gridLines = [0, 1, 2, 3, 4].map(index => plotTop + (index / 4) * (plotBottom - plotTop));
+
+    return (
+        <div className="mt-5">
+            <svg viewBox={`0 0 ${width} ${height}`} className="h-64 w-full overflow-visible" role="img" aria-label="Biểu đồ doanh thu theo ngày">
+                <defs>
+                    <linearGradient id="revenue-area-gradient" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stopColor="#2563eb" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="#2563eb" stopOpacity="0.02" />
+                    </linearGradient>
+                    <filter id="revenue-line-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#2563eb" floodOpacity="0.18" />
+                    </filter>
+                </defs>
+                {gridLines.map((y, index) => (
+                    <g key={y}>
+                        <line x1={plotLeft} x2={plotRight} y1={y} y2={y} stroke="#e2e8f0" strokeDasharray={index === gridLines.length - 1 ? undefined : '4 6'} />
+                        <text x="0" y={y + 4} fill="#94a3b8" fontSize="11">{formatCompactCurrency(safeMax * (1 - index / 4))}</text>
+                    </g>
+                ))}
+                <path d={areaPath} fill="url(#revenue-area-gradient)" />
+                <path d={linePath} fill="none" stroke="#2563eb" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" filter="url(#revenue-line-shadow)" />
+                {points.map(point => (
+                    <g key={point.label}>
+                        <circle cx={point.x} cy={point.y} r="7" fill="#dbeafe" />
+                        <circle cx={point.x} cy={point.y} r="4" fill="#2563eb" stroke="white" strokeWidth="2" />
+                        <title>{`${point.label}: ${formatCurrency(point.total)}`}</title>
+                    </g>
+                ))}
+            </svg>
+            <div className="grid gap-1 pl-[58px] pr-2" style={{ gridTemplateColumns: `repeat(${data.length}, minmax(0, 1fr))` }}>
+                {data.map(item => <span key={item.label} className="text-center text-xs font-medium text-slate-500">{item.label}</span>)}
+            </div>
+        </div>
+    );
+}
+
+function UserRoleDonut({ segments, total }: { segments: Array<{ label: string; count: number; color: string }>; total: number }) {
+    const radius = 70;
+    const circumference = 2 * Math.PI * radius;
+    let cursor = 0;
+    const renderedSegments = segments.map(segment => {
+        const length = total ? (segment.count / total) * circumference : 0;
+        const rendered = { ...segment, length, offset: cursor };
+        cursor += length;
+        return rendered;
+    });
+
+    return (
+        <div className="relative mx-auto h-44 w-44 shrink-0">
+            <svg viewBox="0 0 180 180" className="h-full w-full -rotate-90" role="img" aria-label="Phân bổ người dùng theo vai trò">
+                <circle cx="90" cy="90" r={radius} fill="none" stroke="#f1f5f9" strokeWidth="20" />
+                {renderedSegments.map(segment => (
+                    <circle
+                        key={segment.label}
+                        cx="90"
+                        cy="90"
+                        r={radius}
+                        fill="none"
+                        stroke={segment.color}
+                        strokeDasharray={`${Math.max(segment.length - 5, 0)} ${circumference}`}
+                        strokeDashoffset={-segment.offset}
+                        strokeWidth="20"
+                        className="transition-all duration-500"
+                    />
+                ))}
+                <circle cx="90" cy="90" r="52" fill="white" />
+                <text x="90" y="87" textAnchor="middle" fill="#0f172a" fontSize="22" fontWeight="700" transform="rotate(90 90 90)">{numberFormatter.format(total)}</text>
+                <text x="90" y="105" textAnchor="middle" fill="#64748b" fontSize="10" transform="rotate(90 90 90)">người dùng</text>
+            </svg>
+        </div>
     );
 }
 
@@ -256,18 +376,7 @@ export default function DashboardPage() {
                             <ArrowUpRight size={16} />
                         </Link>
                     </div>
-                    <div className="mt-7 flex h-56 items-end gap-2 sm:gap-4">
-                        {revenueByDay.map(item => (
-                            <div key={item.label} className="group flex h-full flex-1 flex-col justify-end">
-                                <div className="relative flex flex-1 items-end rounded-xl bg-slate-50 px-1">
-                                    <div className="w-full rounded-t-lg bg-gradient-to-t from-blue-600 to-cyan-400 transition group-hover:from-blue-700 group-hover:to-cyan-500" style={{ height: `${Math.max((item.total / maxRevenue) * 100, item.total ? 6 : 2)}%` }}>
-                                        <span className="pointer-events-none absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 whitespace-nowrap rounded-lg bg-slate-900 px-2 py-1 text-xs font-semibold text-white shadow-lg group-hover:block">{formatCurrency(item.total)}</span>
-                                    </div>
-                                </div>
-                                <p className="pt-3 text-center text-xs font-medium text-slate-500">{item.label}</p>
-                            </div>
-                        ))}
-                    </div>
+                    <RevenueAreaChart data={revenueByDay} maxValue={maxRevenue} />
                 </article>
 
                 <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
@@ -320,26 +429,27 @@ export default function DashboardPage() {
                         </div>
                         <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50 text-violet-700"><UserRoundCheck size={19} /></span>
                     </div>
-                    <div className="mt-7 flex h-4 overflow-hidden rounded-full bg-slate-100">
-                        {[
-                            { label: 'Chủ trọ', count: landlords, color: 'bg-blue-600' },
-                            { label: 'Người thuê', count: tenants, color: 'bg-cyan-400' },
-                            { label: 'Quản trị viên', count: admins, color: 'bg-violet-500' },
-                        ].map(item => (
-                            <span key={item.label} className={item.color} style={{ width: `${data.users.length ? (item.count / data.users.length) * 100 : 0}%` }} />
-                        ))}
-                    </div>
-                    <div className="mt-6 grid grid-cols-3 gap-3">
-                        {[
-                            { label: 'Chủ trọ', count: landlords, color: 'bg-blue-600' },
-                            { label: 'Người thuê', count: tenants, color: 'bg-cyan-400' },
-                            { label: 'Admin', count: admins, color: 'bg-violet-500' },
-                        ].map(item => (
-                            <div key={item.label} className="rounded-xl bg-slate-50 p-3">
-                                <div className="flex items-center gap-1.5"><span className={`h-2 w-2 rounded-full ${item.color}`} /><span className="text-xs font-medium text-slate-500">{item.label}</span></div>
-                                <p className="mt-2 text-xl font-bold text-slate-900">{numberFormatter.format(item.count)}</p>
-                            </div>
-                        ))}
+                    <div className="mt-5 grid items-center gap-6 sm:grid-cols-[180px_minmax(0,1fr)]">
+                        <UserRoleDonut
+                            total={data.users.length}
+                            segments={[
+                                { label: 'Chủ trọ', count: landlords, color: '#2563eb' },
+                                { label: 'Người thuê', count: tenants, color: '#22d3ee' },
+                                { label: 'Quản trị viên', count: admins, color: '#8b5cf6' },
+                            ]}
+                        />
+                        <div className="space-y-4">
+                            {[
+                                { label: 'Chủ trọ', count: landlords, color: 'bg-blue-600' },
+                                { label: 'Người thuê', count: tenants, color: 'bg-cyan-400' },
+                                { label: 'Quản trị viên', count: admins, color: 'bg-violet-500' },
+                            ].map(item => (
+                                <div key={item.label} className="flex items-center justify-between gap-4">
+                                    <div className="flex min-w-0 items-center gap-2"><span className={`h-2.5 w-2.5 shrink-0 rounded-full ${item.color}`} /><span className="truncate text-sm font-medium text-slate-600">{item.label}</span></div>
+                                    <div className="text-right"><p className="text-lg font-bold text-slate-900">{numberFormatter.format(item.count)}</p><p className="text-xs text-slate-400">{data.users.length ? Math.round((item.count / data.users.length) * 100) : 0}%</p></div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </article>
             </section>
