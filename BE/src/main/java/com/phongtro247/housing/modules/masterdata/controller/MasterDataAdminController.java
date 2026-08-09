@@ -61,6 +61,6 @@ public class MasterDataAdminController {
     public ActionResponse updateStatus(
             @PathVariable Long id,
             @Valid @RequestBody UpdateMasterDataStatusRequest request) {
-        return masterDataService.updateStatus(id, request.active());
+        return masterDataService.updateStatus(id, request.status());
     }
 }

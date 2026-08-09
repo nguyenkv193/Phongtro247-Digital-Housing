@@ -4,8 +4,6 @@ public record MasterDataGroupResponse(
         String code,
         String name,
         String description,
-        boolean systemManaged,
-        boolean active,
-        int sortOrder
+        boolean status
 ) {
 }

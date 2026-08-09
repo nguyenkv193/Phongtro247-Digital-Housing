@@ -1,4 +1,6 @@
 /admin/
+!/Admin/
+!/Admin/**
 /backend/
 /frontend/
 /.pnpm-store/

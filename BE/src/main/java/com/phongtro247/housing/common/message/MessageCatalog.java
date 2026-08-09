@@ -57,7 +57,6 @@ public final class MessageCatalog {
     public static final AppMessage ERR_PAYMENT_METADATA_ENCODING = new AppMessage("ERR-048", "Không thể mã hóa thông tin thanh toán");
     public static final AppMessage ERR_PAYMENT_SIGNING_FAILED = new AppMessage("ERR-049", "Không thể tạo chữ ký MoMo");
     public static final AppMessage ERR_MASTER_DATA_ITEM_EXISTS = new AppMessage("ERR-050", "Mã dữ liệu danh mục đã tồn tại");
-    public static final AppMessage ERR_MASTER_DATA_INVALID_METADATA = new AppMessage("ERR-051", "Metadata danh mục không đúng định dạng JSON");
 
     public static final AppMessage SUC_REGISTRATION = new AppMessage("SUC-001", "Đăng ký thành công");
     public static final AppMessage SUC_USER_UPDATED = new AppMessage("SUC-002", "Thông tin người dùng đã được cập nhật thành công");
@@ -114,9 +113,11 @@ public final class MessageCatalog {
     public static final String VALIDATION_RATING_MINIMUM = "Điểm đánh giá phải từ 1 đến 5";
     public static final String VALIDATION_RATING_MAXIMUM = "Điểm đánh giá phải từ 1 đến 5";
     public static final String VALIDATION_CODE_REQUIRED = "Mã dữ liệu là bắt buộc";
+    public static final String VALIDATION_CODE_MAX_LENGTH = "Mã dữ liệu không được vượt quá 50 ký tự";
     public static final String VALIDATION_CODE_FORMAT = "Mã dữ liệu chỉ được chứa chữ thường, số, dấu gạch ngang hoặc gạch dưới";
     public static final String VALIDATION_MASTER_DATA_NAME_REQUIRED = "Tên dữ liệu là bắt buộc";
-    public static final String VALIDATION_SORT_ORDER_MINIMUM = "Thứ tự hiển thị không được âm";
+    public static final String VALIDATION_MASTER_DATA_NAME_MAX_LENGTH = "Tên dữ liệu không được vượt quá 100 ký tự";
+    public static final String VALIDATION_MASTER_DATA_DESCRIPTION_MAX_LENGTH = "Mô tả dữ liệu không được vượt quá 300 ký tự";
 
     public static final String DEFAULT_DEPOSIT_ORDER_INFO = "Nạp tiền vào tài khoản";
     public static final String MOMO_TRANSACTION_DESCRIPTION = "Nạp tiền qua MoMo - Mã đơn hàng: %s";
@@ -171,8 +172,8 @@ public final class MessageCatalog {
     public static final String RESOURCE_NOTIFICATION = "thông báo";
     public static final String RESOURCE_REVIEW = "đánh giá";
     public static final String RESOURCE_REVENUE = "doanh thu";
-    public static final String RESOURCE_MASTER_DATA_GROUP = "nhóm dữ liệu danh mục";
-    public static final String RESOURCE_MASTER_DATA_ITEM = "dữ liệu danh mục";
+    public static final String RESOURCE_MASTER_DATA_CATEGORY = "nhóm dữ liệu danh mục";
+    public static final String RESOURCE_MASTER_CODE = "mã dữ liệu danh mục";
     public static final String RESOURCE_HOT_REQUEST = "yêu cầu đẩy tin HOT";
     public static final String RESOURCE_VIDEO_REQUEST = "yêu cầu đăng video";
     public static final String RESOURCE_DEFAULT = "tài nguyên";
@@ -193,8 +194,8 @@ public final class MessageCatalog {
             case "notification" -> RESOURCE_NOTIFICATION;
             case "review" -> RESOURCE_REVIEW;
             case "revenue" -> RESOURCE_REVENUE;
-            case "master data group" -> RESOURCE_MASTER_DATA_GROUP;
-            case "master data item" -> RESOURCE_MASTER_DATA_ITEM;
+            case "masterdatacategory", "master data category" -> RESOURCE_MASTER_DATA_CATEGORY;
+            case "mastercode", "master code" -> RESOURCE_MASTER_CODE;
             case "hot listing request" -> RESOURCE_HOT_REQUEST;
             case "video request" -> RESOURCE_VIDEO_REQUEST;
             default -> RESOURCE_DEFAULT;
