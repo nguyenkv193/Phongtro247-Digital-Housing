@@ -50,7 +50,7 @@ const PaymentResult = () => {
 
     const checkPaymentStatus = async (orderId: string): Promise<void> => {
         try {
-            const response = await fetch('http://localhost:5175/api/payment/momo/check-status', {
+            const response = await fetch('http://localhost:5000/api/payment/momo/check-status', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

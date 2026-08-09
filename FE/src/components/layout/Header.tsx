@@ -158,7 +158,7 @@ const Header = () => {
         navigate(path);
     };
 
-    const API_URL = 'http://localhost:5175';
+    const API_URL = 'http://localhost:5000';
 
     const handleHostNavigation = async () => {
         setShowDropdown(false);

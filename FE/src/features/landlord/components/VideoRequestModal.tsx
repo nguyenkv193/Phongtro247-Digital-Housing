@@ -12,7 +12,7 @@ interface VideoRequestModalProps {
 }
 
 const VideoRequestModal = ({ show, onClose, listingId, listingName }: VideoRequestModalProps) => {
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
     const [note, setNote] = useState('');
     const [loading, setLoading] = useState(false);
 

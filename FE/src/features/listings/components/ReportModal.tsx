@@ -15,7 +15,7 @@ const ReportModal = ({ isOpen, onClose, listingId }: ReportModalProps) => {
     const [reportType, setReportType] = useState('Trọ đã hết phòng');
     const [description, setDescription] = useState('');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
     const token = localStorage.getItem('auth_token');
 
     const reportTypes = ['Trọ đã hết phòng', 'Trọ sai thông tin', 'Trọ vi phạm', 'Lý do khác'];

@@ -21,7 +21,7 @@ const Notifications = () => {
                 throw new Error('Bạn cần đăng nhập để xem thông tin này.');
             }
 
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
             const response = await axios.get(`${API_URL}/api/notifications`, {
                 headers: {
@@ -47,7 +47,7 @@ const Notifications = () => {
     const handleMarkAsRead = async (notificationId: EntityId): Promise<void> => {
         try {
             const token = localStorage.getItem('auth_token');
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
             await axios.put(
                 `${API_URL}/api/notifications/${notificationId}/read`,
@@ -68,7 +68,7 @@ const Notifications = () => {
     const handleMarkAllAsRead = async () => {
         try {
             const token = localStorage.getItem('auth_token');
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
             await axios.put(
                 `${API_URL}/api/notifications/mark-all-read`,
@@ -93,7 +93,7 @@ const Notifications = () => {
 
         try {
             const token = localStorage.getItem('auth_token');
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
             await axios.delete(`${API_URL}/api/notifications/${notificationId}`, {
                 headers: {

@@ -217,7 +217,7 @@ const ListingDetail = () => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [favoriteLoading, setFavoriteLoading] = useState(false);
 
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
     const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
     const currentUser =
         typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('user') || '{}') : {};

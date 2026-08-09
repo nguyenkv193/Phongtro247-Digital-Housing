@@ -69,9 +69,10 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/actuator/health", "/actuator/info", "/api/auth/**").permitAll()
+                        .requestMatchers("/", "/api/health", "/actuator/health", "/actuator/info", "/api/auth/**").permitAll()
                         .requestMatchers("/api/payment/momo/callback", "/api/payment/momo/check-status").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/listings/my-listings").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/master-data/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/locations/**", "/og/**", "/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/tenants/wards").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/listing-reports/my-reports").authenticated()

@@ -46,7 +46,7 @@ const ComplaintsManagement = () => {
             setError(null);
             try {
                 const token = localStorage.getItem('auth_token');
-                const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+                const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
                 const response = await axios.get(`${API_URL}/api/incidents/my-listings`, {
                     headers: { Authorization: `Bearer ${token}` },
                     params: { status: filterStatus, search: debouncedSearchTerm },
@@ -81,7 +81,7 @@ const ComplaintsManagement = () => {
         const incident = selectedIncident;
         try {
             const token = localStorage.getItem('auth_token');
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
             await axios.patch(
                 `${API_URL}/api/incidents/${incident.id}/status`,
                 {

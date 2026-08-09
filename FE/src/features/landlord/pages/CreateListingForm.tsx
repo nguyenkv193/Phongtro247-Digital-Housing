@@ -26,9 +26,16 @@ interface CreateListingFormProps {
     onBack: () => void;
 }
 
+interface MasterDataOption {
+    name: string;
+    active: boolean;
+}
+
 const CreateListingForm = ({ type, onBack }: CreateListingFormProps) => {
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
     const [locations, setLocations] = useState<ListingLocation[]>([]);
+    const [amenitiesList, setAmenitiesList] = useState<string[]>([]);
+    const [surroundingsList, setSurroundingsList] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchLocations = async () => {
@@ -42,7 +49,23 @@ const CreateListingForm = ({ type, onBack }: CreateListingFormProps) => {
             }
         };
         fetchLocations();
-    }, []);
+    }, [API_URL]);
+
+    useEffect(() => {
+        const fetchMasterData = async () => {
+            try {
+                const [amenitiesResponse, surroundingsResponse] = await Promise.all([
+                    axios.get<{ data: MasterDataOption[] }>(`${API_URL}/api/master-data/AMENITY`),
+                    axios.get<{ data: MasterDataOption[] }>(`${API_URL}/api/master-data/SURROUNDING`),
+                ]);
+                setAmenitiesList(amenitiesResponse.data.data.filter(item => item.active).map(item => item.name));
+                setSurroundingsList(surroundingsResponse.data.data.filter(item => item.active).map(item => item.name));
+            } catch (error) {
+                console.error('Error fetching master data:', error);
+            }
+        };
+        void fetchMasterData();
+    }, [API_URL]);
 
     const [formData, setFormData] = useState<ListingFormData>({
         name: '',
@@ -200,37 +223,6 @@ const CreateListingForm = ({ type, onBack }: CreateListingFormProps) => {
             setLoading(false);
         }
     };
-
-    const amenitiesList = [
-        'Gác lửng',
-        'Wifi',
-        'Vệ sinh trong',
-        'Phòng tắm',
-        'Bình nóng lạnh',
-        'Kệ bếp',
-        'Máy giặt',
-        'Tivi',
-        'Điều hòa',
-        'Tủ lạnh',
-        'Giường nệm',
-        'Tủ áo quần',
-        'Ban công/ sân thượng',
-        'Thang máy',
-        'Bãi để xe riêng',
-        'Camera an ninh',
-        'Hồ bơi',
-        'Sân vườn',
-    ];
-
-    const surroundingsList = [
-        'Chợ',
-        'Siêu thị',
-        'Bệnh viện',
-        'Trường học',
-        'Công viên',
-        'Bến xe bus',
-        'Trung tâm thể dục thể thao',
-    ];
 
     const getTitleByType = () => {
         switch (type) {

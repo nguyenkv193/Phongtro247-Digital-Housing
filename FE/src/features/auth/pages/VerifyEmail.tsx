@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from '@/lib/navigation/router-compat';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5174';
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
 const VerifyEmail = () => {
     const [searchParams] = useSearchParams();

@@ -15,7 +15,7 @@ import type { ListingLocation } from '@/types';
 
 const SearchForm = () => {
     const navigate = useNavigate();
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
     const {
         type,

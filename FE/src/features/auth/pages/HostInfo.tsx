@@ -15,7 +15,7 @@ const HostInfo = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
-    const API_URL = 'http://localhost:5175';
+    const API_URL = 'http://localhost:5000';
 
     useEffect(() => {
         const currentUser = JSON.parse(localStorage.getItem('auth_user') || 'null') as User | null;

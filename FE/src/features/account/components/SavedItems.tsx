@@ -5,7 +5,7 @@ import type { EntityId } from '@/types';
 
 const SavedItems = () => {
     const { favoritesList, favoritesCount, removeFavorite } = useFavorites();
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
     const handleRemoveFavorite = async (e: React.MouseEvent<HTMLButtonElement>, listingId: EntityId) => {
         e.preventDefault();

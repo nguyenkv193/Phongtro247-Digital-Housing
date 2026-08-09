@@ -21,7 +21,7 @@ const PaymentPage = ({ amount = 0, username = 'Người dùng' }) => {
             console.log('Current user:', currentUser);
             console.log('User ID:', currentUser.id);
 
-            const response = await fetch('http://localhost:5175/api/payment/momo/create', {
+            const response = await fetch('http://localhost:5000/api/payment/momo/create', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

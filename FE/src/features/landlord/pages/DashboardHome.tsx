@@ -70,7 +70,7 @@ const rentalTypes = [
 ];
 
 export default function DashboardHome() {
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
     const [selectedType, setSelectedType] = useState<string | null>(null);
     const [showTypeSelection, setShowTypeSelection] = useState(false);
     const [listings, setListings] = useState<DashboardListing[]>([]);

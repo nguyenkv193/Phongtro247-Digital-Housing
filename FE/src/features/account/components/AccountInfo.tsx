@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState, useEffect } from 'react';
 import type { User } from '@/types';
 
-const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5174';
+const API_BASE = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
 const AccountInfo = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);

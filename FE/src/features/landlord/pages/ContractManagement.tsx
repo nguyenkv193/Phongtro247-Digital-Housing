@@ -57,7 +57,7 @@ const ContractManagement = () => {
     useEffect(() => {
         const fetchListings = async () => {
             try {
-                const res = await axios.get('http://localhost:5175/api/contracts/listings/by-type');
+                const res = await axios.get('http://localhost:5000/api/contracts/listings/by-type');
                 setListings(res.data);
             } catch (error) {
                 console.error('Lỗi lấy danh sách trọ:', error);
@@ -81,7 +81,7 @@ const ContractManagement = () => {
     useEffect(() => {
         const fetchTenants = async () => {
             try {
-                const res = await axios.get('http://localhost:5175/api/contracts/tenants');
+                const res = await axios.get('http://localhost:5000/api/contracts/tenants');
 
                 setTenants(res.data);
             } catch (err) {
@@ -135,7 +135,7 @@ const ContractManagement = () => {
             const selectedListing = listings.find(l => String(l.id) === formData.tro_id);
 
             if (isEditing && editingContract) {
-                await axios.put(`http://localhost:5175/api/contracts/${editingContract.id}`, {
+                await axios.put(`http://localhost:5000/api/contracts/${editingContract.id}`, {
                     start_date: formData.ngay_vao,
                     end_date: formData.ngay_ket_thuc,
                     deposit_price: formData.gia_coc,
@@ -147,7 +147,7 @@ const ContractManagement = () => {
                 alert('Cập nhật hợp đồng thành công!');
                 await fetchContracts();
             } else {
-                await axios.post('http://localhost:5175/api/contracts', {
+                await axios.post('http://localhost:5000/api/contracts', {
                     tenant_id: formData.tenant_id,
                     listing_id: formData.tro_id,
                     listing_type_id: selectedListing ? selectedListing.listing_type_id : null,
@@ -182,7 +182,7 @@ const ContractManagement = () => {
 
     const fetchContracts = async () => {
         try {
-            const res = await axios.get('http://localhost:5175/api/contracts');
+            const res = await axios.get('http://localhost:5000/api/contracts');
             setContracts(res.data);
         } catch (err) {
             console.error('Lỗi khi tải lại danh sách hợp đồng:', err);
@@ -197,7 +197,7 @@ const ContractManagement = () => {
         if (!window.confirm('Bạn có chắc muốn xóa hợp đồng này không?')) return;
 
         try {
-            await axios.delete(`http://localhost:5175/api/contracts/${id}`);
+            await axios.delete(`http://localhost:5000/api/contracts/${id}`);
             alert('Xóa hợp đồng thành công!');
             setContracts(prev => prev.filter(c => c.id !== id));
         } catch (err) {

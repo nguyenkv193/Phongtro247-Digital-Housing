@@ -9,7 +9,7 @@ import Breadcrumb from '@/components/navigation/Breadcrumb';
 import type { ListingLocation, VideoListing } from '@/types';
 
 const VideoReview = () => {
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
     const [searchParams] = useSearchParams();
     const locationParam = searchParams.get('location');
 

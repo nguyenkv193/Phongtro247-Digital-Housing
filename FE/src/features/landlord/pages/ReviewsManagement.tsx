@@ -30,7 +30,7 @@ const ReviewsManagement = () => {
                     throw new Error('Bạn cần đăng nhập để xem chức năng này.');
                 }
 
-                const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || '';
+                const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || '';
                 const response = await axios.get(`${API_URL}/api/reviews/my-listings`, {
                     headers: {
                         Authorization: `Bearer ${token}`,

@@ -46,7 +46,7 @@ const LandlordDashboard = () => {
     const fetchNotifications = async () => {
         try {
             const token = localStorage.getItem('auth_token');
-            const res = await axios.get('http://localhost:5175/api/notifications', {
+            const res = await axios.get('http://localhost:5000/api/notifications', {
                 headers: { Authorization: `Bearer ${token}` },
                 params: { limit: 10 },
             });
@@ -61,7 +61,7 @@ const LandlordDashboard = () => {
         try {
             const token = localStorage.getItem('auth_token');
             await axios.put(
-                `http://localhost:5175/api/notifications/${notificationId}/read`,
+                `http://localhost:5000/api/notifications/${notificationId}/read`,
                 {},
                 { headers: { Authorization: `Bearer ${token}` } }
             );

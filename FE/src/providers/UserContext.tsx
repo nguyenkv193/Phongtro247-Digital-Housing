@@ -20,7 +20,7 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
             if (user && token) {
                 try {
                     const response = await axios.get<{ balance?: number }>(
-                        `${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175')}/api/user/balance`,
+                        `${(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000')}/api/user/balance`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`,

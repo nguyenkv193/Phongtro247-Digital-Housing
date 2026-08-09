@@ -16,7 +16,7 @@ export const useFavorites = () => {
 export const FavoritesProvider = ({ children }: PropsWithChildren) => {
     const [favoritesList, setFavoritesList] = useState<ListingSummary[]>([]);
     const [favoritesCount, setFavoritesCount] = useState(0);
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
     const loadFavorites = async (): Promise<void> => {
         const token = localStorage.getItem('auth_token');

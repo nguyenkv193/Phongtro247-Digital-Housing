@@ -15,7 +15,7 @@ const UserInfo = () => {
 
     const fetchUserInfo = async () => {
         try {
-            const res = await fetch('http://localhost:5175/api/user/info', {
+            const res = await fetch('http://localhost:5000/api/user/info', {
                 headers: { Authorization: `Bearer ${token}` },
             });
             const data = await res.json();
@@ -46,7 +46,7 @@ const UserInfo = () => {
         try {
             const { ...dataToUpdate } = formData;
 
-            const res = await fetch('http://localhost:5175/api/user/update', {
+            const res = await fetch('http://localhost:5000/api/user/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

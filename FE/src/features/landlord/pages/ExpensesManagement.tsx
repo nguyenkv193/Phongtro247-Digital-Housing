@@ -35,7 +35,7 @@ const ExpensesManagement = () => {
             if (filterType === 'income') params.type = 'income';
             if (filterType === 'expense') params.type = 'expense';
 
-            const res = await axios.get('http://localhost:5175/api/expenses', {
+            const res = await axios.get('http://localhost:5000/api/expenses', {
                 headers: { Authorization: `Bearer ${token}` },
                 params,
             });

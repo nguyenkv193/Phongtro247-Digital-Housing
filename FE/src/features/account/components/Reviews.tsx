@@ -23,7 +23,7 @@ const Reviews = () => {
                 throw new Error('Bạn cần đăng nhập để xem thông tin này.');
             }
 
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
             const response = await axios.get(`${API_URL}/api/reviews/my-reviews`, {
                 headers: {
@@ -52,7 +52,7 @@ const Reviews = () => {
 
         try {
             const token = localStorage.getItem('auth_token');
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
 
             const response = await axios.delete(`${API_URL}/api/reviews/${reviewId}`, {
                 headers: {

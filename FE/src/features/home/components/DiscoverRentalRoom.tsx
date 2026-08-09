@@ -8,7 +8,7 @@ import { Link } from '@/lib/navigation/router-compat';
 import type { EntityId, ListingLocation, VideoListing } from '@/types';
 
 const DiscoverRentalRoom = () => {
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
     const [activeVideo, setActiveVideo] = useState<string | null>(null);
     const [videosPerView, setVideosPerView] = useState(5);
     const [videos, setVideos] = useState<VideoListing[]>([]);

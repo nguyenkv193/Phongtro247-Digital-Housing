@@ -61,7 +61,7 @@ const TenantManagement = () => {
 
     const fetchTenants = async () => {
         try {
-            const res = await axios.get(`http://localhost:5175/api/tenants?owner_id=${owner_id}`);
+            const res = await axios.get(`http://localhost:5000/api/tenants?owner_id=${owner_id}`);
             setTenants(res.data);
         } catch (err) {
             console.error('Lỗi tải danh sách khách thuê:', err);
@@ -71,7 +71,7 @@ const TenantManagement = () => {
     useEffect(() => {
         if (isModalOpen) {
             axios
-                .get('http://localhost:5175/api/tenants/wards')
+                .get('http://localhost:5000/api/tenants/wards')
                 .then(res => setWards(res.data))
                 .catch(err => console.error('Lỗi tải danh sách phường/xã:', err));
         }
@@ -88,7 +88,7 @@ const TenantManagement = () => {
         e.preventDefault();
         try {
             const payload = { ...formData, owner_id };
-            const res = await axios.post('http://localhost:5175/api/tenants', payload);
+            const res = await axios.post('http://localhost:5000/api/tenants', payload);
             alert(res.data.message);
             closeModal();
             setFormData({
@@ -118,7 +118,7 @@ const TenantManagement = () => {
         data: Partial<ManagedTenant>
     ): Promise<void> => {
         try {
-            await axios.patch(`http://localhost:5175/api/tenants/${tenantId}`, data);
+            await axios.patch(`http://localhost:5000/api/tenants/${tenantId}`, data);
             setTenants(prev => prev.map(t => (t.id === tenantId ? { ...t, ...data } : t)));
         } catch (err) {
             console.error(err);

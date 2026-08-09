@@ -22,7 +22,7 @@ const AccommodationInfo = () => {
                 throw new Error('Bạn cần đăng nhập để xem thông tin này.');
             }
 
-            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175') || 'http://localhost:5175';
+            const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000') || 'http://localhost:5000';
             const url = `${API_URL}/api/tenants/my-info`;
 
             console.log('📡 Calling API:', url);

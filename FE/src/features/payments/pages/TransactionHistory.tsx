@@ -27,7 +27,7 @@ const TransactionHistory = () => {
                 return;
             }
 
-            const response = await fetch('http://localhost:5175/api/transactions/history', {
+            const response = await fetch('http://localhost:5000/api/transactions/history', {
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`,

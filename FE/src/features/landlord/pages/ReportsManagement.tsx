@@ -31,7 +31,7 @@ const ReportsManagement = () => {
     const fetchReports = async () => {
         try {
             const token = localStorage.getItem('auth_token');
-            const res = await axios.get('http://localhost:5175/api/reports', {
+            const res = await axios.get('http://localhost:5000/api/reports', {
                 headers: { Authorization: `Bearer ${token}` },
                 params: { days: selectedRange },
             });

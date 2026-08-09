@@ -26,7 +26,7 @@ interface HomeListings {
 }
 
 const Home = () => {
-    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5175');
+    const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
     const navigate = useNavigate();
 
     const [listings, setListings] = useState<HomeListings>({
