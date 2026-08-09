@@ -131,19 +131,19 @@ export default function BackofficeShell({ children }: PropsWithChildren) {
     return (
         <BackofficeGuard>
             <div className="backoffice-shell min-h-screen bg-slate-50 text-slate-800">
-                <div className="fixed inset-y-0 left-0 z-30 hidden lg:block">{sidebar}</div>
-                {mobileOpen && <div className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-[2px] lg:hidden" onClick={() => setMobileOpen(false)} aria-hidden="true" />}
-                <div className={`fixed inset-y-0 left-0 z-50 transform transition-transform duration-200 lg:hidden ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+                <div className="fixed inset-y-0 left-0 z-30 hidden xl:block">{sidebar}</div>
+                {mobileOpen && <div className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-[2px] xl:hidden" onClick={() => setMobileOpen(false)} aria-hidden="true" />}
+                <div className={`fixed inset-y-0 left-0 z-50 transform transition-transform duration-200 xl:hidden ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                     <Button size="icon" variant="outline" aria-label="Đóng menu" onClick={() => setMobileOpen(false)} className="absolute -right-11 top-4 rounded-l-none text-slate-600 shadow-md">
                         <X size={19} />
                     </Button>
                     {sidebar}
                 </div>
 
-                <div className="lg:pl-64">
+                <div className="xl:pl-64">
                     <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b border-slate-200 bg-white px-4 md:px-6">
                         <div className="flex min-w-0 items-center gap-3">
-                            <Button size="icon" variant="ghost" onClick={() => setMobileOpen(true)} className="lg:hidden" aria-label="Mở menu">
+                            <Button size="icon" variant="ghost" onClick={() => setMobileOpen(true)} className="xl:hidden" aria-label="Mở menu" aria-expanded={mobileOpen}>
                                 <Menu size={22} />
                             </Button>
                             <div className="min-w-0">
@@ -182,5 +182,4 @@ export default function BackofficeShell({ children }: PropsWithChildren) {
         </BackofficeGuard>
     );
 }
-
 
