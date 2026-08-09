@@ -52,9 +52,9 @@ export default function BackofficeShell({ children }: PropsWithChildren) {
     const sidebar = (
         <aside className="flex h-full w-72 flex-col border-r border-slate-200 bg-white">
             <div className="flex h-20 items-center gap-3 border-b border-slate-100 px-6">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-lg font-black text-white shadow-lg">T</span>
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-lg font-black text-white shadow-lg">P</span>
                 <div>
-                    <p className="font-bold text-slate-900">Trọ Mới</p>
+                    <p className="font-bold text-slate-900">Phongtro247</p>
                     <p className="text-xs font-semibold text-blue-600">BACKOFFICE</p>
                 </div>
             </div>

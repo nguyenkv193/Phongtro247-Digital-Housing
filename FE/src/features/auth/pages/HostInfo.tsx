@@ -93,7 +93,7 @@ const HostInfo = () => {
                 <div className="w-[400px] md:w-[600px] h-[720px] hidden lg:flex flex-col items-center justify-center p-8 bg-[linear-gradient(to_bottom,#e2efff_0%,#fff_100%)]">
                     <img
                         src={img_auth}
-                        alt="Trọ Mới"
+                        alt="Phongtro247"
                         className="max-w-[400px] max-h-[300px] mb-4"
                     />
                     <h2 className="text-2xl font-[600] text-[#2e2a2a] mb-2 uppercase mt-4">

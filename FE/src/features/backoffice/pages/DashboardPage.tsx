@@ -75,7 +75,7 @@ export default function DashboardPage() {
         <div className="space-y-7">
             <PageHeading
                 title="Tổng quan vận hành"
-                description="Theo dõi nhanh các chỉ số quan trọng của hệ thống Trọ Mới."
+                description="Theo dõi nhanh các chỉ số quan trọng của hệ thống Phongtro247."
                 action={
                     <button type="button" onClick={() => void load(true)} disabled={refreshing} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-blue-200 hover:text-blue-700 disabled:opacity-60">
                         <RefreshCw size={17} className={refreshing ? 'animate-spin' : ''} />

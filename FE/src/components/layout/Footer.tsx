@@ -22,15 +22,15 @@ const Footer = () => {
                         </div>
                         <div className="flex flex-col gap-y-2">
                             <p className="text-[#0045a8] text-sm uppercase font-semibold">
-                                Tải App Trọ Mới ngay
+                                Tải App Phongtro247 ngay
                             </p>
                             <div className="flex items-center gap-x-2">
                                 <div
                                     className="flex h-[95px] w-[95px] flex-col items-center justify-center rounded-md border border-slate-300 bg-white text-[#0045a8]"
-                                    aria-label="Mã QR tải ứng dụng Trọ Mới"
+                                    aria-label="Mã QR tải ứng dụng Phongtro247"
                                 >
                                     <FontAwesomeIcon icon={faQrcode} className="text-5xl" />
-                                    <span className="mt-1 text-[9px] font-bold tracking-wide">TRỌ MỚI</span>
+                                    <span className="mt-1 text-[9px] font-bold tracking-wide">PHONGTRO247</span>
                                 </div>
                                 <div className="h-[95px] flex flex-col gap-y-2">
                                     <div className="flex h-[47px] w-[155px] items-center gap-2 rounded-md bg-black px-3 text-white">

@@ -1,4 +1,4 @@
-# Trọ Mới – Next.js frontend
+# Phongtro247 – Next.js frontend
 
 Đây là frontend Next.js chạy song song với ứng dụng React/Vite cũ trong `../frontend`.
 

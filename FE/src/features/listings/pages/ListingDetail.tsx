@@ -54,6 +54,7 @@ import ReportModal from '@/features/listings/components/ReportModal';
 import { Helmet } from 'react-helmet';
 import { useFavorites } from '@/providers/FavoritesContext';
 import type { EntityId, ListingDetail as ListingDetailData, ListingReview } from '@/types';
+import { APP_NAME } from '@/config/site';
 
 const ListingDetail = () => {
     const { id } = useParams();
@@ -512,7 +513,7 @@ const ListingDetail = () => {
     return (
         <>
             <Helmet>
-                <title>{listing.title} - Phongtro247</title>
+                <title>{listing.title} | {APP_NAME}</title>
                 <meta name="description" content={listing.description || listing.title} />
 
                 {/* Open Graph / Facebook */}

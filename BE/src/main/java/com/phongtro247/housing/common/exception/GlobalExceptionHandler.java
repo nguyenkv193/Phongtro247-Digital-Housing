@@ -11,6 +11,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.LinkedHashMap;
@@ -18,6 +20,8 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(ApiException.class)
     ResponseEntity<ErrorResponse> handleApiException(ApiException exception, HttpServletRequest request) {
@@ -52,6 +56,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     ResponseEntity<ErrorResponse> handleUnexpectedException(Exception exception, HttpServletRequest request) {
+        LOGGER.error("Lỗi không được xử lý khi gọi {} {}", request.getMethod(), request.getRequestURI(), exception);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error(
                 HttpStatus.INTERNAL_SERVER_ERROR, MessageCatalog.ERR_INTERNAL, request, Map.of()));
     }

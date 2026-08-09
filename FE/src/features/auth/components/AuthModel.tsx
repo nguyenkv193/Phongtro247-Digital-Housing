@@ -26,6 +26,7 @@ const AuthModel = ({ type, onClick }: AuthModelProps) => {
     const [loading, setLoading] = useState(false);
 
     const API_URL = (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000');
+    const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID?.trim();
 
     useEffect(() => {
         const savedToken = localStorage.getItem('auth_token');
@@ -61,8 +62,15 @@ const AuthModel = ({ type, onClick }: AuthModelProps) => {
     const handleRegister = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         setError('');
-        if (!fullName || !username || !password || !confirmPassword) {
+        const normalizedFullName = fullName.trim();
+        const normalizedUsername = username.trim();
+
+        if (!normalizedFullName || !normalizedUsername || !password || !confirmPassword) {
             setError('Vui lòng nhập đầy đủ thông tin!');
+            return;
+        }
+        if (password.length < 8) {
+            setError('Mật khẩu phải có ít nhất 8 ký tự');
             return;
         }
         if (password !== confirmPassword) {
@@ -71,10 +79,10 @@ const AuthModel = ({ type, onClick }: AuthModelProps) => {
         }
         setLoading(true);
         try {
-            const res = await axios.post(`${API_URL}/api/auth/register`, {
-                full_name: fullName,
-                email: username.includes('@') ? username : '',
-                phone: !username.includes('@') ? username : '',
+            await axios.post(`${API_URL}/api/auth/register`, {
+                full_name: normalizedFullName,
+                email: normalizedUsername.includes('@') ? normalizedUsername : '',
+                phone: !normalizedUsername.includes('@') ? normalizedUsername : '',
                 password,
             });
             toast.success('Đăng ký thành công!');
@@ -82,10 +90,12 @@ const AuthModel = ({ type, onClick }: AuthModelProps) => {
             onClick('Login');
         } catch (err: unknown) {
             setLoading(false);
-            setError(
-                (axios.isAxiosError<{ message?: string }>(err) ? err.response?.data?.message : undefined) ||
-                    'Đăng ký thất bại!'
-            );
+            if (axios.isAxiosError<{ message?: string; violations?: Record<string, string> }>(err)) {
+                const violations = err.response?.data?.violations;
+                setError(Object.values(violations ?? {})[0] || err.response?.data?.message || 'Đăng ký thất bại!');
+                return;
+            }
+            setError('Đăng ký thất bại!');
         }
     };
 
@@ -309,7 +319,13 @@ const AuthModel = ({ type, onClick }: AuthModelProps) => {
                                 </div>
 
                                 <div className="mt-6">
-                                    <GoogleLoginButton />
+                                    {googleClientId ? (
+                                        <GoogleLoginButton />
+                                    ) : (
+                                        <p className="rounded-md border border-amber-200 bg-amber-50 px-4 py-3 text-center text-xs text-amber-700">
+                                            Đăng nhập Google chưa được cấu hình.
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         )}

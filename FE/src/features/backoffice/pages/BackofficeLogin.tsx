@@ -55,7 +55,7 @@ export default function BackofficeLogin() {
     return (
         <main className="grid min-h-screen bg-slate-50 lg:grid-cols-2">
             <section className="hidden bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-700 p-12 text-white lg:flex lg:flex-col lg:justify-between">
-                <div className="flex items-center gap-3 font-bold"><span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 text-lg">T</span> Trọ Mới</div>
+                <div className="flex items-center gap-3 font-bold"><span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 text-lg">P</span> Phongtro247</div>
                 <div className="max-w-md">
                     <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15"><ShieldCheck size={30} /></span>
                     <h1 className="mt-7 text-4xl font-bold leading-tight">Trung tâm vận hành hệ thống.</h1>
