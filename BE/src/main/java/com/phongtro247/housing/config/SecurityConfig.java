@@ -65,6 +65,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/", "/api/health", "/actuator/health", "/actuator/info", "/api/auth/**").permitAll()
                         .requestMatchers("/api/payment/momo/callback", "/api/payment/momo/check-status").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/listings/my-listings").authenticated()

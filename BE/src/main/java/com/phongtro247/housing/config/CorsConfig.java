@@ -15,9 +15,9 @@ public class CorsConfig {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource(
-            @Value("${CORS_ALLOWED_ORIGINS:http://localhost:5176,http://localhost:5177,http://localhost:3000}") String allowedOrigins) {
+            @Value("${CORS_ALLOWED_ORIGINS:http://localhost:5176,http://localhost:5177,http://localhost:3000,http://127.0.0.1:5176,http://127.0.0.1:5177,http://127.0.0.1:3000}") String allowedOrigins) {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.stream(allowedOrigins.split(","))
+        configuration.setAllowedOriginPatterns(Arrays.stream(allowedOrigins.split(","))
                 .map(String::trim)
                 .filter(value -> !value.isBlank())
                 .toList());
