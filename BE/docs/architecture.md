@@ -12,11 +12,12 @@ The root package is intentionally divided into five layers:
 
 Each business capability lives under `modules/<capability>` and is divided into:
 
-- `api`: controllers and transport DTOs. It owns the external HTTP contract.
-- `application`: use cases and transaction boundaries.
-- `domain`: entities, value objects and domain rules.
-- `infrastructure`: module-local repositories when needed. Shared external
-  integrations belong to the root `infrastructure` package.
+- `controller`: HTTP controllers. It owns the external HTTP contract.
+- `service`: use cases, transaction boundaries and module-specific ports.
+- `dto`: typed request and response contracts used by the module.
+- `entity`: entities, value objects and persistence-facing domain rules.
+- `repository`: module-local persistence adapters and Spring Data repositories.
+  Shared external integrations belong to the root `infrastructure` package.
 
 The `common` package contains only cross-cutting concerns. New code should not
 access another module's repository directly; cross-module access should go
@@ -27,7 +28,7 @@ ports during hardening.
 
 For example, Google OAuth adapters belong under
 `infrastructure/google`, while the authentication use case and its provider
-port remain inside `modules/auth/application`.
+port remain inside `modules/auth/service`.
 
 ## Message conventions
 
@@ -40,7 +41,9 @@ User-facing messages and response codes are defined in
 
 Application code must use `MessageCatalog` constants or templates. Response
 objects expose both `code` and `message` so clients can branch on stable codes
-without parsing text.
+without parsing text. User-facing message text is standardized in Vietnamese;
+technical protocol values such as JWT, JSON and MoMo remain unchanged where
+they are part of an external contract.
 
 ## Current modules
 

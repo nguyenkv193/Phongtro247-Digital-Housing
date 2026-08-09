@@ -21,7 +21,7 @@ this project.
 src/main/java/com/phongtro247/housing
 ├── config        # framework configuration
 ├── bootstrap     # startup, seed and lifecycle orchestration
-├── common        # API primitives, errors, security and cross-cutting concerns
+├── common        # API primitives, errors, messages, security and cross-cutting concerns
 ├── infrastructure # shared technical adapters and external integrations
 ├── modules       # business modules
 │   ├── auth
@@ -37,7 +37,7 @@ Base package responsibilities:
 
 - `config`: Jackson, security, CORS and static resource configuration.
 - `bootstrap`: application startup, seed and lifecycle orchestration.
-- `common`: cross-cutting API, error, security runtime and storage utilities.
+- `common`: cross-cutting API, error, message, security runtime and storage utilities.
 - `infrastructure`: shared technical adapters and external integrations such as Google OAuth.
 - `modules`: business bounded contexts and their use cases.
 
@@ -54,10 +54,11 @@ the catalog instead of hard-coded user-facing text.
 `auth`, `users`, `locations`, `listings`, `favorites`, `reviews`, `tenants`,
 `contracts`, `incidents`, `notifications`, `transactions`, `promotions`,
 `listingreports`, `landlordreports`, `revenues`, `admin` and `payments` follow
-the `api / application / domain` layout. A module may keep its own persistence
-adapter under `infrastructure`; shared external integrations live in the root
-`infrastructure` package.
-Controllers translate HTTP only; application services own use cases and
+the `controller / service / dto / entity / repository` layout. A module may
+omit directories that it does not use. Shared external integrations live in
+the root `infrastructure` package, while module-local persistence stays under
+that module's `repository` package.
+Controllers translate HTTP only; the service layer owns use cases and
 transaction boundaries; repositories stay inside their module.
 
 ## Run locally

@@ -1,6 +1,6 @@
 package com.phongtro247.housing.common.security;
 
-import com.phongtro247.housing.modules.users.domain.UserEntity;
+import com.phongtro247.housing.modules.users.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;

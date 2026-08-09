@@ -1,0 +1,54 @@
+package com.phongtro247.housing.modules.favorites.entity;
+
+import com.phongtro247.housing.modules.listings.entity.ListingEntity;
+import com.phongtro247.housing.modules.users.entity.UserEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+
+import java.time.Instant;
+
+@Entity
+@Table(name = "favorites")
+public class FavoriteEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "listing_id", nullable = false)
+    private ListingEntity listing;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt;
+
+    protected FavoriteEntity() {
+    }
+
+    public FavoriteEntity(UserEntity user, ListingEntity listing) {
+        this.user = user;
+        this.listing = listing;
+    }
+
+    @PrePersist
+    void onCreate() {
+        createdAt = Instant.now();
+    }
+
+    public Long getId() { return id; }
+    public UserEntity getUser() { return user; }
+    public ListingEntity getListing() { return listing; }
+    public Instant getCreatedAt() { return createdAt; }
+}
